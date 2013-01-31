@@ -99,13 +99,14 @@ class Config(object):
         :rtype: None
 
         """
-        url = os.environ.get('NEO4J_REST_URL', None)
-        log.debug("NEORJ_REST_URL: %s", url)
+        url = os.environ.get('NEO4J_URL', None)
+        log.debug("NEO4J_URL: %s", url)
 
         if url is not None:
             parsed =  urlparse(url)
             pieces = (parsed.scheme, parsed.hostname, parsed.port, parsed.path)
-            self.root_uri = "%s://%s:%s%s" % pieces
+            addpath = '/db/data/'
+            self.root_uri = "%s://%s:%s%s" % pieces + addpath
             self.username = parsed.username
             self.password = parsed.password
             self.set_logger(log_level, log_handler)
